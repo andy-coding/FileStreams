@@ -80,6 +80,17 @@ namespace FileStreams
 
     }
 
+    class ProtectPersonalData
+    {
+
+        public static string GDPRUsingRegex(string inString) // remove partial phone number info for GDPR purposes
+        {
+            inString = Regex.Replace(inString, "[0-9]{8}", "$1********");
+            Console.WriteLine(inString);
+            return inString;
+        }
+    }
+
     class Program
     {
 
@@ -158,12 +169,7 @@ namespace FileStreams
             return returntext;
         }
 
-        static string GDPRUsingRegex(string inString)
-        {
-            inString = Regex.Replace(inString, "(08)[0-9]{8}", "$1********");
 
-            return inString;
-        }
 
 
 
@@ -218,7 +224,11 @@ namespace FileStreams
             //ReadFile(fileloc);
                 */
 
-            InputValue.EnterIntegerFixed("Enter an 11 digit phone number without spaces: ", 11);
+            long phoneNumber = InputValue.EnterIntegerFixed("Enter an 11 digit phone number without spaces: ", 11);
+
+            string phoneSafe = ProtectPersonalData.GDPRUsingRegex(Convert.ToString(phoneNumber));
+            Console.WriteLine(phoneSafe);
+
         }
 
 
