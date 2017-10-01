@@ -16,6 +16,70 @@ namespace FileStreams
         }
     }
 
+    class InputValue
+    {
+        static public long EnterIntegerFixed(string inputRequest, int length) // Enter fixed number of integers and confirm only integers entered
+        {
+            long intOut = -1;
+            string inString = "";
+            bool tryParse = false;
+
+            while (!tryParse || (inString.Length != length))
+            {
+                Console.Write(inputRequest);
+                inString = Console.ReadLine();
+                tryParse = Int64.TryParse(inString, out intOut);
+                // Console.WriteLine("tryParse = " + tryParse);
+                // Console.WriteLine("inString.Length = " + inString.Length);
+
+                if (!tryParse && (inString.Length != length))
+                {
+                    Console.WriteLine(" length was wrong and incorrect use of non integers - please try again");
+                }
+
+                if (!tryParse && (inString.Length == length))
+                {
+                    Console.WriteLine("Input contained non integers - please try again. " + inputRequest);
+                }
+                if (tryParse && inString.Length != length)
+                {
+                    Console.WriteLine("Input was of the wrong length - please try again. " + inputRequest);
+                }
+
+
+            }
+            Console.WriteLine("Thanks.");
+            return intOut;
+        }
+
+        static public long EnterInteger(string inputRequest) // Enter undefined number of integers and confirm only integers entered
+        {
+            long intOut = -1;
+            string inString = "";
+            bool tryParse = false;
+
+            while (!tryParse)
+            {
+                Console.Write(inputRequest);
+                inString = Console.ReadLine();
+                tryParse = Int64.TryParse(inString, out intOut);
+
+                if (!tryParse)
+                {
+                    Console.WriteLine("Try again. " + inputRequest);
+                }
+                else
+                {
+                    Console.WriteLine("Thanks.");
+                }
+
+            }
+
+            return intOut;
+        }
+
+    }
+
     class Program
     {
 
@@ -101,65 +165,6 @@ namespace FileStreams
             return inString;
         }
 
-        static long EnterIntegerFixed(string inputRequest, int length) // Enter fixed number of integers and confirm only integers entered
-        {
-            long intOut = -1;
-            string inString = "";
-            bool tryParse=false;
-
-            while (!tryParse || (inString.Length != length))
-            {
-                    Console.Write(inputRequest);
-                    inString = Console.ReadLine();
-                    tryParse = Int64.TryParse(inString, out intOut);
-                // Console.WriteLine("tryParse = " + tryParse);
-                // Console.WriteLine("inString.Length = " + inString.Length);
-
-                if (!tryParse && (inString.Length != length))
-                    {
-                        Console.WriteLine(" length was wrong and incorrect use of non integers - please try again");
-                    }
-
-                    if (!tryParse && (inString.Length == length))
-                    {
-                        Console.WriteLine("Input contained non integers - please try again. " + inputRequest);
-                    }
-                    if (tryParse && inString.Length != length)
-                    {
-                        Console.WriteLine("Input was of the wrong length - please try again. " + inputRequest);
-                    }
-
-
-            }
-            Console.WriteLine("Thanks.");
-            return intOut;
-        }
-
-        static long EnterInteger(string inputRequest) // Enter undefined number of integers and confirm only integers entered
-        {
-            long intOut = -1;
-            string inString = "";
-            bool tryParse = false;
-
-            while (!tryParse)
-            {
-                Console.Write(inputRequest);
-                inString = Console.ReadLine();
-                tryParse = Int64.TryParse(inString, out intOut);
-
-                if (!tryParse)
-                {
-                    Console.WriteLine("Try again. " + inputRequest);
-                }
-                else
-                {
-                    Console.WriteLine("Thanks.");
-                }
-
-            }
-
-            return intOut;
-        }
 
 
         static void Main()
@@ -213,7 +218,7 @@ namespace FileStreams
             //ReadFile(fileloc);
                 */
 
-            EnterIntegerFixed("Enter an 11 digit phone number without spaces: ", 11);
+            InputValue.EnterIntegerFixed("Enter an 11 digit phone number without spaces: ", 11);
         }
 
 
